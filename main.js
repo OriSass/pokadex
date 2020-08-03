@@ -1,5 +1,4 @@
 const searchPokemon = async () => {
-  debugger;
   let pokemonId = document.getElementById("search").value;
   const { data } = await axios.get(`http://pokeapi.co/api/v2/pokemon/${pokemonId}`)
     .catch(function (error) {
@@ -10,7 +9,6 @@ const searchPokemon = async () => {
   /*else console.log("no Such ID");*/
 };
 //searchPokemon();
-debugger;
 
 let sButton = document.getElementById("searchButton");
 sButton.addEventListener("click", searchPokemon);
@@ -25,6 +23,14 @@ function showPokeStats(data) {
   let res = document.getElementById("results");
 
   makeDiv(name, height, weight, frontImg, res);
+  let img = document.getElementById("pokeImg");
+  img.addEventListener("mouseover", () => {
+    //let currentUrl = img.getAttribute("src");
+    img.setAttribute("src", backImg);
+  });
+  img.addEventListener("mouseout", () => {
+    img.setAttribute("src", frontImg);
+  })
 }
 const makeDiv = (name, height, weight, frontImg, container) => {
   const htmlText = `
@@ -32,7 +38,7 @@ const makeDiv = (name, height, weight, frontImg, container) => {
             <div>Name: ${name}</div>
             <div>height: ${height}</div>
             <div>weight: ${weight}</div>
-            <div>picture: <img src="${frontImg}" /></div>
+            <div>picture: <img id="pokeImg" src="${frontImg}" /></div>
           </div>
         `;
   container.innerHTML = htmlText;
